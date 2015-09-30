@@ -6,6 +6,7 @@ Here in this app short url will be like http://localhost:8000/shorturl
 
 Python 2.7 and django 1.8 is used.
 
-1: You can directly download the source code and run following command to run this app:
-python manage.py runserver
-2: Open http://localhost:8000 in the browser.
+1: Download the source code.
+2: On command prompt go to the directory where manage.py file is.
+3: Run command python manage.py runserver
+4: Open http://localhost:8000 in the browser.
