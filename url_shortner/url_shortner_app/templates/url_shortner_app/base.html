@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+ <title>{% block title %}Welcome to mysite{% endblock %}</title>
+ 
+ <link rel="stylesheet" href="{% static 'url_shortner_app/css/bootstrap.min.css'%}">
+ <link rel="stylesheet" type="text/css" href="{% static 'url_shortner_app/css/custom.css' %}" />
+ <script src="{% static 'url_shortner_app/js/jquery.min.js'%}"></script>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<script type="text/javascript">
+ $(function() {
+ $('#submitButton').click(function() {
+ $.ajax({
+ type: "POST",
+ url: "/makeshort/",
+ data: {
+ 'url' : $('#url').val(),
+ 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+ },
+ success: returnSuccess,
+ dataType: 'json'
+ });
+ });
+});
+ 
+function returnSuccess(data, textStatus, jqXHR) {
+ if(data.url) {
+ $('#url-result').text(data.url).html( 'New short URL: <a target="_blank" href="'+data.url+'">'+data.url+'</a>' );
+
+
+ 
+ $('#url').val("");
+ } else {
+ $('#url-result').text("Do not submit blank."); 
+ }
+  
+}
+
+$('#url-result').click(function(){
+    window.location = 'http://google.com';
+});
+</script>
+<body>
+<div id="wrap">
+<header>
+ <h1><a href="{% url 'url_shortner_app:home' %}">URL Shortner</a><small> Shorten the URL</small></h1>
+</header>
+ 
+<div id="content">
+{% block content %}
+ 
+{% endblock %}
+</div>
+</div>
+</body>
+</html>
